@@ -38,6 +38,7 @@ public class Subject {
         this.id = id;
         this.specialism = specialism;
         this.duration = duration;
+        this.description = "";
     }
 
     /**

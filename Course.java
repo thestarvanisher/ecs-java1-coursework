@@ -199,4 +199,12 @@ public class Course {
     public boolean isCancelled() {
         return this.isCancelled;
     }
+
+    /**
+     * Returns the instructor of the course
+     * @return an object of the instructor
+     * */
+    public Instructor getInstructor() {
+        return this.instructor;
+    }
 }
