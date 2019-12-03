@@ -13,6 +13,7 @@ public class Subject {
     private int specialism;
     private int duration;
     private String description;
+    private bool occupied;
 
     /**
      * Constructs an object with the following 4 parameters when provided:
@@ -26,6 +27,7 @@ public class Subject {
         this.specialism = specialism;
         this.duration = duration;
         this.description = description;
+        this.occupied = false;
     }
 
     /**
@@ -79,5 +81,25 @@ public class Subject {
      * */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Checks if the subject is occupied by a course
+     * @return true if it's occupied, false otherwise
+     * */
+    public boolean isOccupied() {
+        return this.occupied;
+    }
+
+    /**
+     * Toggles the status of occupation
+     * */
+    public void toggleOccupation() {
+        if(this.isOccupied()) {
+            this.occupied = false;
+        }
+        else {
+            this.occupied = true;
+        }
     }
 }

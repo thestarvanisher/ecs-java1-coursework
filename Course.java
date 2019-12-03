@@ -34,6 +34,7 @@ public class Course {
      * */
     public Course(Subject subject, int daysUntilStarts) {
         this.subject = subject;
+        this.subject.toggleOccupation();
         this.daysUntilStarts = daysUntilStarts;
         this.daysToRun = this.getSubject().getDuration();
         this.enrolledStudents = new ArrayList<Student>();
@@ -78,6 +79,7 @@ public class Course {
             if(this.daysUntilStarts == 0) {
                 if(this.getSize() == 0 || this.hasInstructor() == false) {
                     cancellCourse();
+                    this.subject.toggleOccupation();
                 }
             }
         }
@@ -85,6 +87,7 @@ public class Course {
             this.daysToRun--;
             if(this.daysToRun == 0) {
                 this.issueCertificates();
+                this.subject.toggleOccupation();
             }
         }
     }
