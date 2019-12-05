@@ -28,13 +28,13 @@ public class Course {
 
     /**
      * Constructs a Course object with given subject and number of days until the course starts
-     * and creates an array for the enroled students
+     * and creates an array for the enroled students. Sets the isCancelled flag
      * @param subject the Subject which the course is associated with
      * @param daysUntilStarts number of days until the course starts
      * */
     public Course(Subject subject, int daysUntilStarts) {
         this.subject = subject;
-        this.subject.toggleOccupation();
+        this.subject.setNumberOfCourses(false);
         this.daysUntilStarts = daysUntilStarts;
         this.daysToRun = this.getSubject().getDuration();
         this.enrolledStudents = new ArrayList<Student>();
@@ -79,22 +79,25 @@ public class Course {
             if(this.daysUntilStarts == 0) {
                 if(this.getSize() == 0 || this.hasInstructor() == false) {
                     cancellCourse();
-                    this.subject.toggleOccupation();
+                    this.subject.setNumberOfCourses(true);
                 }
             }
         }
         else {
+            if(this.daysToRun == this.getSubject().getDuration() && this.isCancelled() == false) {
+                this.subject.setNumberOfCourses(true);
+            }
             this.daysToRun--;
             if(this.daysToRun == 0) {
                 this.issueCertificates();
-                this.subject.toggleOccupation();
             }
         }
     }
 
     /**
      * Enrols a student to the course. If the number of students has reached the maximum or
-     * the course has started the method doesn't enrol the student.
+     * the course has started the method doesn't enrol the student. also changes the students enrollment
+     * status if he has been enrolled
      * @return true if enrolling the student was successful, false if it was not
      * */
     public boolean enrolStudent(Student student) {
@@ -103,6 +106,10 @@ public class Course {
         }
         else {
             this.enrolledStudents.add(student);
+            student.toggleCourse(this);
+            if(this.getSize() == MAX_STUDENTS) {
+                this.getSubject().setNumberOfCourses(true);
+            }
             return true;
         }
     }
@@ -132,6 +139,8 @@ public class Course {
      * The method issues certificates to the enrolled students in the course
      * */
     private void issueCertificates() {
+        unsetInstructor();
+        releaseStudents();
         for(int i=0; i < this.getSize(); i++) {
             this.enrolledStudents.get(i).graduate(this.subject);
         }
@@ -182,6 +191,9 @@ public class Course {
      * */
     private void releaseStudents() {
         if(this.getSize() > 0) {
+            for(int i = 0; i < this.enrolledStudents.size(); i++) {
+                this.enrolledStudents.get(i).toggleCourse(this);
+            }
             this.enrolledStudents = new ArrayList<Student>();
         }
     }

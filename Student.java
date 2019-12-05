@@ -12,9 +12,11 @@ public class Student extends Person {
      * The parameter for the student is an ArrayList, containing the certificates of the student
      * */
     private ArrayList<Integer> certificates;
-
+    private boolean hasCourse = false;
+    private Course course;
     /**
-     * Constructs a Student object with given name, gender and age
+     * Constructs a Student object with given name, gender and age. Creates the certificates list
+     * and sets the hasCourse flag
      * @param name the name of the student
      * @param gender the gender of the student
      * @param age the age of the student
@@ -22,6 +24,7 @@ public class Student extends Person {
     public Student(String name, char gender, int age) {
         super(name, gender, age);
         this.certificates = new ArrayList<Integer>();
+        this.hasCourse = false;
     }
 
     /**
@@ -52,5 +55,27 @@ public class Student extends Person {
         else {
             return false;
         }
+    }
+
+    /**
+     * Toggles the stuent hasCourse flag. Used to change the status whether the student is
+     * on course or not
+     * */
+    public void toggleCourse(Course course) {
+        this.hasCourse = !this.hasCourse;
+        if(this.checkHasCourse()) {
+            this.course = course;
+        }
+        else {
+            this.course = null;
+        }
+    }
+
+    /**
+     * Checks if the students has course assigned to him
+     * @return true if he does, false otherwise
+     * */
+    public boolean checkHasCourse() {
+        return this.hasCourse;
     }
 }

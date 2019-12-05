@@ -94,6 +94,14 @@ public class School {
     }
 
     /**
+     * Changes the name of the school
+     * @param name the new name of the school
+     * */
+    public void changeName(String name) {
+        this.name = name;
+    }
+
+    /**
      * Returns an array of the students in the shcool
      * @return array of the students in the school
      * */
@@ -138,7 +146,6 @@ public class School {
         for(int i = 0; i < this.instructors.size(); i++) {
             instructorsToReturn[i] = this.instructors.get(i);
         }
-        toString()
         return instructorsToReturn;
     }
 
@@ -176,8 +183,57 @@ public class School {
         return stringToReturn;
     }
 
+    /**
+     *Runs a day at school. Creates new courses and assigns people and instructors to it. Removes cancelled and finished
+     * courses.
+     * */
     public void aDayAtSchool() {
-        
-        continue;
+
+        /** Creates object for subjects open for registry */
+        for(int i = 0; i < this.subjects.size(); i++) {
+            if(subjects.get(i).isOpenForRegistry() == true) {
+                this.add(new Course(subjects.get(i), 2));
+            }
+        }
+
+        /**
+         * Assigns students and instructors to the courses. The methods doesn't use any algorithm
+         * it simply assigns the first available student and instructor to the first course in the list
+         * */
+        for(int i = 0; i < courses.size(); i++) {
+            if(courses.get(i).getStatus() < 0) {
+                while(courses.get(i).getSize() < 3) {
+                    int currentSize = courses.get(i).getSize();
+                    for(int j = 0; j < students.size(); j++) {
+                        if(students.get(j).checkHasCourse() == false && students.get(j).hasCertificate(courses.get(i).getSubject()) == false) {
+                            //System.out.println("Enrolling " + students.get(j).getName() + " to course " + courses.get(i).getSubject().getID());
+                            courses.get(i).enrolStudent(students.get(j));
+                            break;
+                        }
+                    }
+                    if(currentSize == courses.get(i).getSize()) {
+                        break;
+                    }
+                }
+                if(courses.get(i).hasInstructor() == false) {
+                    for(int j = 0; j < instructors.size(); j++) {
+                        if(instructors.get(j).getAssignedCourse() == null && instructors.get(j).canTeach(courses.get(i).getSubject())) {
+                            courses.get(i).setInstructor(instructors.get(j));
+                            break;
+                        }
+                    }
+                }
+            }
+            courses.get(i).aDayPasses();
+        }
+
+        /** Removes cancelled and finished courses */
+        ArrayList<Course> coursesToRemove = new ArrayList<Course>();
+        for(int i = 0; i < courses.size(); i++) {
+            if(courses.get(i).getStatus() == 0 || courses.get(i).isCancelled() == true) {
+                coursesToRemove.add(courses.get(i));
+            }
+        }
+        courses.removeAll(coursesToRemove);
     }
 }

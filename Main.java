@@ -9,8 +9,8 @@ public class Main {
         Subject subject2 = new Subject(2, 3, 4);
         Subject subject3 = new Subject(3, 4, 5);
         Subject subject4 = new Subject(4, 1, 6);
-        Course course1 = new Course(subject1, 2);
-        Course course2 = new Course(subject2, 3);
+        //Course course1 = new Course(subject1, 2);
+        //Course course2 = new Course(subject2, 3);
         Student student1 = new Student("Alice", 'F', 25);
         Student student2 = new Student("Bob", 'M', 30);
         Student student3 = new Student("Charlie Sheen", 'M', 35);
@@ -24,15 +24,15 @@ public class Main {
 
 
 
-        course1.enrolStudent(student1);
-        course1.enrolStudent(student2);
+        //course1.enrolStudent(student1);
+        //course1.enrolStudent(student2);
         //course1.aDayPasses();
         //System.out.println(course1.isCancelled());
         //course1.aDayPasses();
 
         //System.out.println(course1.isCancelled());
 
-        course1.setInstructor(demonstrator1);
+        //course1.setInstructor(demonstrator1);
 
 
         school.add(student1);
@@ -48,9 +48,13 @@ public class Main {
         school.add(ootrainer1);
         school.add(guitrainer1);
         //course1.enrolStudent(student1);
-        school.add(course1);
+        //school.add(course1);
 
 
-        System.out.println(school.toString());
+        //System.out.println(school.toString());
+        for(int i = 0; i < 8; i++) {
+            school.aDayAtSchool();
+            System.out.println(school.toString());
+        }
     }
 }

@@ -182,8 +182,9 @@ public class ExtractSchoolData {
         ArrayList<String> students = new ArrayList<String>();
         String storeString = "";
         for(int i = 0; i < object.size(); i++) {
+            storeString = "";
             try {
-                System.out.println(object.get(i).getStudents().length);
+                //System.out.println(object.get(i).getStudents().length);
                 for(int j = 0; j < object.get(i).getStudents().length; j++) {
                     storeString += object.get(i).getStudents()[j].getName();
                     if(j!= object.get(i).getStudents().length - 1) {

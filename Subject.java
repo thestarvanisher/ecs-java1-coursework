@@ -13,10 +13,10 @@ public class Subject {
     private int specialism;
     private int duration;
     private String description;
-    private bool occupied;
+    private int numberOfCourses;
 
     /**
-     * Constructs an object with the following 4 parameters when provided:
+     * Constructs an object with the following 4 parameters and sets the numberOfCourses flag:
      * @param id The unique ID of the Subject
      * @param specialism The specialism ID of the subject
      * @param duration The duration (number of days) needed for a course to cover this subject
@@ -27,7 +27,7 @@ public class Subject {
         this.specialism = specialism;
         this.duration = duration;
         this.description = description;
-        this.occupied = false;
+        this.numberOfCourses = 0;
     }
 
     /**
@@ -84,22 +84,30 @@ public class Subject {
     }
 
     /**
-     * Checks if the subject is occupied by a course
+     * Checks if the subject is open for registry for a course
      * @return true if it's occupied, false otherwise
      * */
-    public boolean isOccupied() {
-        return this.occupied;
+    public boolean isOpenForRegistry() {
+        if(this.numberOfCourses > 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     /**
-     * Toggles the status of occupation
+     * Sets the numberOfCourses. That is used to determine if there are courses available for
+     * the subject. Uses a boolean values to determine whether to increase or decrease the number.
+     * Increases if a new course has been linked to this subject and decreases if a course has been removed
+     * @param isOpen true if the subject must be open, false otherwise
      * */
-    public void toggleOccupation() {
-        if(this.isOccupied()) {
-            this.occupied = false;
+    public void setNumberOfCourses(boolean isOpen) {
+        if(isOpen == true) {
+            this.numberOfCourses--;
         }
         else {
-            this.occupied = true;
+            this.numberOfCourses++;
         }
     }
 }
