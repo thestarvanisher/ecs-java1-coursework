@@ -162,9 +162,10 @@ public class School {
         stringToReturn += PrettyOutput.createTitleOutput(this.name);
         stringToReturn += "\n";
 
-        String[] studentHeaders = {"Name", "Gender", "Age"};
+        String[] studentHeaders = {"Name", "Gender", "Age", "Certificates"};
         stringToReturn += PrettyOutput.createOutput("Students", studentHeaders, ExtractSchoolData.getNames(this.students),
-                ExtractSchoolData.getGenders(students), ExtractSchoolData.getAges(students));
+                ExtractSchoolData.getGenders(students), ExtractSchoolData.getAges(students),
+                ExtractSchoolData.getStudentsCertificates(students));
 
         String[] subjectHeaders = {"ID", "Description", "Duration"};
         stringToReturn += PrettyOutput.createOutput("Subjects", subjectHeaders, ExtractSchoolData.getSubjectID(subjects),

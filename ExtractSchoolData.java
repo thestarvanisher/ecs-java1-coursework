@@ -184,7 +184,6 @@ public class ExtractSchoolData {
         for(int i = 0; i < object.size(); i++) {
             storeString = "";
             try {
-                //System.out.println(object.get(i).getStudents().length);
                 for(int j = 0; j < object.get(i).getStudents().length; j++) {
                     storeString += object.get(i).getStudents()[j].getName();
                     if(j!= object.get(i).getStudents().length - 1) {
@@ -276,5 +275,33 @@ public class ExtractSchoolData {
             cancelledStatus.add(storeString);
         }
         return cancelledStatus;
+    }
+
+    /**
+     * The method returns an ArrayList of strings, containing the certificates of students (separated by commas)
+     * which the students have
+     * @param object an ArrayList of students
+     * @return an ArrayList of type String - the desired certificates of students
+     * */
+    public static ArrayList<String> getStudentsCertificates(ArrayList<Student> object) {
+        ArrayList<String> studentsCertificates = new ArrayList<String>();
+        String storeString = "";
+        for(int i = 0; i < object.size(); i++) {
+            storeString = "";
+            try {
+                for(int j = 0; j < object.get(i).getCertificates().size(); j++) {
+                    storeString += object.get(i).getCertificates().get(j);
+                    if(j!= object.get(i).getCertificates().size() - 1) {
+                        storeString += ", ";
+                    }
+                }
+            }
+            catch (Exception e) {
+
+                storeString = "";
+            }
+            studentsCertificates.add(storeString);
+        }
+        return studentsCertificates;
     }
 }

@@ -164,13 +164,14 @@ public class Administrator {
                     return;
                 }
             }
+            admin = new Administrator(school);
+
+            admin.run(duration);
         }
         catch (IOException e) {
             System.out.println("Cannot read the file provided!");
         }
 
-        admin = new Administrator(school);
 
-        admin.run(duration);
     }
 }

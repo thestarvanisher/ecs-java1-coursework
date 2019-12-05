@@ -140,10 +140,11 @@ public class Course {
      * */
     private void issueCertificates() {
         unsetInstructor();
-        releaseStudents();
+
         for(int i=0; i < this.getSize(); i++) {
             this.enrolledStudents.get(i).graduate(this.subject);
         }
+        releaseStudents();
     }
 
     /**
